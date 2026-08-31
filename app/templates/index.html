@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OmniInspect — Legal Metrology Digital Inspection Platform (SIH26034)</title>
+  <meta name="description" content="AI-Assisted Legal Metrology Digital Inspection Engine under Legal Metrology (Packaged Commodities) Rules, 2011 & Amendments.">
+  
+  <!-- Tailwind CSS CDN for guaranteed utility styling -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f0f6ff',
+              100: '#e0edff',
+              500: '#2563eb',
+              600: '#1d4ed8',
+              700: '#1e40af',
+              900: '#1e3a8a',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts & Lucide Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/@lucide/web"></script>
+  
+  <!-- Custom Light Enterprise Styles -->
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body class="bg-slate-50 text-slate-900 font-sans antialiased selection:bg-blue-600 selection:text-white min-h-screen flex flex-col">
+
+  <!-- Institutional Header Bar -->
+  <div class="bg-slate-900 text-slate-300 text-xs py-1.5 px-4 sm:px-8 flex flex-wrap justify-between items-center border-b border-slate-800">
+    <div class="flex items-center gap-3">
+      <span class="font-bold text-white flex items-center gap-1.5">
+        <i data-lucide="shield-check" class="w-4 h-4 text-blue-400"></i>
+        OmniInspect | SIH26034
+      </span>
+      <span class="text-slate-700">|</span>
+      <span>Ministry of Consumer Affairs, Food & Public Distribution</span>
+    </div>
+    
+    <div class="flex items-center gap-4 text-[11px]">
+      <span class="text-slate-400">Decision-Support Inspection Prototype</span>
+      <div class="flex items-center gap-1.5 bg-slate-800 px-2 py-0.5 rounded border border-slate-700">
+        <i data-lucide="user-check" class="w-3.5 h-3.5 text-blue-400"></i>
+        <select id="userRoleSelect" onchange="switchRole(this.value)" class="bg-transparent text-slate-200 outline-none cursor-pointer">
+          <option value="Officer">Enforcement Officer (Insp. Rajesh Sharma)</option>
+          <option value="Supervisor">Supervisor (Supv. Ananya Verma)</option>
+          <option value="Auditor">Auditor (Aud. Vikram Gupta)</option>
+          <option value="Admin">Administrator (System Admin)</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Primary Light Enterprise Navigation Bar -->
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <a href="#/dashboard" class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-lg bg-blue-700 flex items-center justify-center text-white shadow-sm font-bold text-lg">
+          <i data-lucide="scan-line" class="w-5 h-5"></i>
+        </div>
+        <div>
+          <h1 class="text-base font-bold text-slate-900 tracking-tight leading-none flex items-center gap-2">
+            OmniInspect
+            <span class="text-[10px] font-semibold px-1.5 py-0.5 bg-blue-50 text-blue-700 border border-blue-200 rounded">LM Rules 2011/2023</span>
+          </h1>
+          <p class="text-[11px] text-slate-500 mt-0.5">Legal Metrology Digital Inspection Assistant</p>
+        </div>
+      </a>
+
+      <!-- Clean Main Navigation -->
+      <nav class="hidden md:flex items-center gap-1">
+        <a href="#/dashboard" class="nav-link" id="nav-dashboard">
+          <i data-lucide="layout-dashboard" class="w-4 h-4"></i> Dashboard
+        </a>
+        <a href="#/inspections/new" class="nav-link nav-link-hero" id="nav-new-inspection">
+          <i data-lucide="plus-circle" class="w-4 h-4 text-blue-600"></i> New Inspection
+        </a>
+        <a href="#/inspections" class="nav-link" id="nav-inspections">
+          <i data-lucide="clipboard-list" class="w-4 h-4"></i> Inspections
+        </a>
+        <a href="#/rules" class="nav-link" id="nav-rules">
+          <i data-lucide="book-open" class="w-4 h-4"></i> Rules
+        </a>
+        <a href="#/reports" class="nav-link" id="nav-reports">
+          <i data-lucide="file-text" class="w-4 h-4"></i> Reports
+        </a>
+      </nav>
+
+      <!-- Secondary Controls & Demo Mode Toggle -->
+      <div class="flex items-center gap-3">
+        <div class="relative group">
+          <button class="px-2.5 py-1 text-xs font-semibold text-slate-600 bg-slate-100 hover:bg-slate-200 rounded border border-slate-200 flex items-center gap-1">
+            <i data-lucide="more-horizontal" class="w-3.5 h-3.5"></i> Admin / Audit
+          </button>
+          <div class="hidden group-hover:block absolute right-0 top-full pt-1 w-44 z-50">
+            <div class="bg-white border border-slate-200 rounded-lg shadow-lg py-1 text-xs text-slate-700">
+              <a href="#/risk-prioritization" class="block px-3 py-1.5 hover:bg-slate-50 flex items-center gap-2">
+                <i data-lucide="alert-triangle" class="w-3.5 h-3.5 text-amber-500"></i> Risk Priorities
+              </a>
+              <a href="#/audit-logs" class="block px-3 py-1.5 hover:bg-slate-50 flex items-center gap-2">
+                <i data-lucide="history" class="w-3.5 h-3.5 text-blue-500"></i> Audit Trail
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <button onclick="toggleDemoModeModal()" class="px-3 py-1.5 bg-slate-900 text-white rounded text-xs font-semibold hover:bg-slate-800 transition-colors flex items-center gap-1.5 shadow-sm">
+          <i data-lucide="sparkles" class="w-3.5 h-3.5 text-amber-400"></i> Demo Mode
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Dynamic Single Page Application Main View -->
+  <main id="app-view" class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <!-- Rendered dynamically by app.js -->
+  </main>
+
+  <!-- Global Modal Container -->
+  <div id="modal-container" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div id="modal-content" class="bg-white border border-slate-200 rounded-xl max-w-2xl w-full p-6 shadow-2xl relative">
+      <!-- Injected modal body -->
+    </div>
+  </div>
+
+  <!-- Global Footer -->
+  <footer class="bg-white border-t border-slate-200 text-slate-500 text-xs py-6 mt-auto">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div>
+        <p class="font-bold text-slate-800">OmniInspect — Digital Inspection Platform</p>
+        <p class="text-slate-500 mt-0.5">Problem Statement: SIH26034 | Ministry of Consumer Affairs, Food & Public Distribution</p>
+      </div>
+      <div class="text-right text-slate-500">
+        <p>AI extracts. Rules validate. Evidence explains. Humans decide.</p>
+        <p class="text-[11px] text-slate-400 mt-0.5">Inspection assistance & decision-support prototype. Final authority remains with authorized officer.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Main Client Script -->
+  <script src="/static/js/app.js"></script>
+</body>
+</html>
